@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rimraf ./dist && swc ./src --out-dir ./dist --copy-files",
     "start": "node --no-warnings ./dist/index.js",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "drizzle:push": "drizzle-kit push"
   },
   "keywords": [],
   "author": "",

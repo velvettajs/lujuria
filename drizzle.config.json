@@ -1,5 +1,0 @@
-{
-  "dialect": "postgresql",
-  "schema": "./src/models/*",
-  "out": "./drizzle"
-}
