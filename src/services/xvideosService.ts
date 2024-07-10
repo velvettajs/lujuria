@@ -12,8 +12,7 @@ export const getRandomVideo = async (
     const lastPage = pagination.pages[pagination.pages.length - 1];
     const page = Math.floor(Math.random() * lastPage) + 1;
     const { videos } = await xvideos.videos.search({ k, page });
-    const randomVideo = videos[Math.floor(Math.random() * videos.length)];
-    const { url, title, duration } = randomVideo;
+    const { url, title, duration } = videos[Math.floor(Math.random() * videos.length)];
     return { url, title, duration, k };
   } catch (error) {
     console.error("Error getting random video", error);
