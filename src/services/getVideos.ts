@@ -1,11 +1,7 @@
-// getVideos.ts
-import { Webhook } from "discord-webhook-node";
-import webhooks from "./jsons/webhooks.json";
 import { processVideo } from "./videoConvert";
-import { getGirl } from "./getGirl";
+import { getGirl } from "../getGirl";
 import * as fs from "fs/promises";
 
-// Función para pausar la ejecución
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const getVideos = async () => {
@@ -23,7 +19,6 @@ export const getVideos = async () => {
         if (videoPath.includes("Error processing video")) {
           alternativeIndex++;
           if (alternativeIndex >= 27) {
-            // Ajusta el límite según lo que consideres apropiado
             console.log(`No more videos available for ${key}. Skipping.`);
             alternativeIndex = 0;
             next = true;
@@ -31,10 +26,7 @@ export const getVideos = async () => {
           }
           continue;
         }
-        const hook = new Webhook(webhookUrl);
-        hook.setAvatar(girl.image);
-        hook.setUsername(girl.name);
-        await hook.sendFile(videoPath);
+
         console.log(`Message sent to ${key}`);
         break; // Salir del bucle si el video se envió con éxito
       } catch (error) {

@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import util from "util";
 import axios from "axios";
-import { addProcessedTitle } from "./handleRepeated";
+import { addProcessedTitle } from "../utils/handleRepeated";
 const xvideos = require("@rodrigogs/xvideos");
 
 const pipeline = util.promisify(require("stream").pipeline);
@@ -114,7 +114,11 @@ export const processVideo = async (
 
     const videoUrl = video.url;
     const videoTitle = video.title.replace(/[\/\\?%*:|"<>]/g, "_");
-    const outputFilePath = path.join(__dirname, `${videoTitle}_converted.mp4`);
+    const outputFilePath = path.join(
+      __dirname,
+      "videos",
+      `${videoTitle}_converted.mp4`
+    );
 
     console.log(`Processing video from ${videoUrl}...`);
     await scrapeLocoloader(videoUrl, outputFilePath);
