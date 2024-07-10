@@ -1,3 +1,3 @@
-import { getVideos } from "./services/videosService";
+import { main } from "./services/main";
 
-getVideos();
+main();
