@@ -1,7 +1,7 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { CdnConfig } from "../config/config";
+import { CdnConfig } from "../config/config.js";
 import * as fs from "fs";
-import { s3Client } from "../cdn/cdnClient";
+import { s3Client } from "../cdn/cdnClient.js";
 
 const { R2_BUCKET_NAME, R2_ENDPOINT } = CdnConfig;
 export const uploadToCdn = async (

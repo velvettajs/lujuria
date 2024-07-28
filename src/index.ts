@@ -1,3 +1,3 @@
-import { main } from "./services/main";
+import { main } from "./services/main.js";
 
 main();

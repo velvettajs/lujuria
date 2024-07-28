@@ -1,8 +1,12 @@
-import { pgTable, varchar } from "drizzle-orm/pg-core";
+import { pgTable, varchar, uuid } from "drizzle-orm/pg-core";
+import { tags } from "./tags";
+
 export const videos = pgTable("videos", {
-  x_url: varchar("x_url", { length: 255 }).primaryKey(),
-  title: varchar("name", { length: 36 }).notNull(),
+  id: uuid("id").primaryKey().defaultRandom(),
+  x_url: varchar("x_url", { length: 255 }),
   url: varchar("url", { length: 255 }).notNull(),
   preview: varchar("preview", { length: 255 }).notNull(),
-  channel_tag: varchar("channel_tag", { length: 100 }).notNull(),
+  tag: uuid("tag")
+    .notNull()
+    .references(() => tags.id),
 });

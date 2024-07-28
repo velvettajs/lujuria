@@ -1,5 +1,5 @@
 import { S3Client } from "@aws-sdk/client-s3";
-import { CdnConfig } from "../config/config";
+import { CdnConfig } from "../config/config.js";
 
 const { R2_ACCESS_KEY_ID, R2_ENDPOINT, R2_SECRET_ACCESS_KEY } =
   CdnConfig;

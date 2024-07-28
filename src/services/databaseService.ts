@@ -1,5 +1,5 @@
-import db from "../database/dbClient";
-import { videos } from "../models/video";
+import db from "../database/dbClient.js";
+import { videos } from "../models/video.js";
 
 export const saveVideoInDatabase = async (
   x_url: string,

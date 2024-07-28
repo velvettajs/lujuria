@@ -1,37 +1,57 @@
 {
-  "name": "porn-spammer",
-  "version": "2.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "lujuria",
+  "version": "3.0.0",
+  "description": "powerful and automated tool designed to scrape videos from Xvideos, download them, and send them directly to a designated Discord channel via a webhook.",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./dist && swc ./src --out-dir ./dist --copy-files",
+    "build": "tsup",
     "start": "node --no-warnings ./dist/index.js",
     "dev": "nodemon",
     "drizzle:push": "drizzle-kit push"
   },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "format": [
+      "cjs"
+    ],
+    "dts": true,
+    "outDir": "dist",
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true
+  },
   "keywords": [],
-  "author": "",
+  "author": "OSintt",
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.614.0",
     "@aws-sdk/lib-storage": "^3.614.0",
     "@neondatabase/serverless": "^0.9.4",
-    "@rodrigogs/xvideos": "^1.3.0",
     "axios": "^1.7.2",
     "discord-webhook-node": "^1.1.8",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.31.4",
-    "puppeteer": "^22.12.1",
-    "uuid": "^10.0.0"
+    "xvideos.js": "^1.0.1"
   },
   "devDependencies": {
-    "@swc/cli": "^0.4.0",
-    "@swc/core": "^1.6.13",
+    "@eslint/js": "^9.8.0",
     "@types/node": "^20.14.9",
-    "@types/puppeteer": "^7.0.4",
-    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.17.0",
+    "@typescript-eslint/parser": "^7.17.0",
     "drizzle-kit": "^0.22.8",
+    "eslint": "^9.8.0",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
     "nodemon": "^3.1.4",
-    "typescript": "^5.5.3"
+    "prettier": "^3.3.3",
+    "tsup": "^8.2.3",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.17.0"
   }
 }
