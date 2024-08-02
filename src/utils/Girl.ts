@@ -1,16 +1,14 @@
-import { girls } from 'src/models/girls';
-import db from '/database/dbClient';
+import { girls } from "/models/girls";
+import db from "../config/db";
 class Girl {
-  private db;
+  private db: DbType;
   constructor() {
     this.db = db;
   }
   async get(): Promise<GirlType> {
     const girlsList: GirlType[] = await this.db.select().from(girls);
-    const randomIndex = Math.floor(Math.random() * girlsList.length);
-    return girls[randomIndex];
-  };
-
+    return girlsList[Math.floor(Math.random() * girlsList.length)];
+  }
 }
 
 export default Girl;

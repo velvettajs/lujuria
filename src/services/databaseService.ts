@@ -1,24 +1,15 @@
-import db from "../database/dbClient.js";
-import { videos } from "../models/video.js";
+import db from "../config/db.js";
+import { videos } from "/models/video.js";
+import { eq } from "drizzle-orm";
 
-export const saveVideoInDatabase = async (
-  x_url: string,
-  title: string,
-  url: string,
-  preview: string,
-  channel_tag: string
-) => {
-  try {
-    await db.insert(videos).values({
-      x_url,
-      title,
-      url,
-      preview,
-      channel_tag,
-    });
-    console.log(`Video saved in database successfully: ${title}`);
-  } catch (error) {
-    console.error("Error saving video in database:", error);
-    throw new Error("Error saving video in database");
-  }
+export async function addPreviewUrl(preview: string, id: string) {
+  await db.update(videos).set({ preview }).where(eq(videos.id, id));
+}
+
+export const saveVideoInDatabase = async (video): Promise<string> => {
+  const [videoId] = await db
+    .insert(videos)
+    .values(video)
+    .returning({ id: videos.id });
+  return videoId.id;
 };

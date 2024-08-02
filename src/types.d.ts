@@ -1,24 +1,39 @@
-interface WebhookType {
-  tag: TagType;
-  webhook_url: string;
-}
+import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
 
-interface VideoType {
-  id: any;
-  x_url: string;
-  preview: string;
-  tag: TagType;
-}
+declare global {
+  type DbType = NeonHttpDatabase<Record<string, never>>;
+  interface WebhookType {
+    tag: string;
+    webhook_url: string;
+    server_id: string;
+  }
 
-interface GirlType {
-  name: string;
-  avatar: string;
-}
+  interface VideoType {
+    id: string;
+    title: string;
+    description: string;
+    url: string;
+    preview: string;
+    image: string;
+    duration: string;
+    hls: string;
+    low: string;
+    high: string;
+    views: number;
+    tag: string;
+  }
 
-interface TagType {
-  name: string;
-}
+  interface GirlType {
+    name: string;
+    avatar: string;
+  }
 
-interface ServerType {
-  server_id: string;
+  interface TagType {
+    id: string;
+    name: string;
+  }
+
+  interface ServerType {
+    server_id: string;
+  }
 }
