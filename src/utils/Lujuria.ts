@@ -1,26 +1,34 @@
 import Video from "./Video";
 import * as fs from "fs/promises";
-import Webhook from "./Webhook";
+import Tag from "./Tag";
 import { uploadToCdn } from "/services/cdnService.js";
-import { saveVideoInDatabase } from "/services/databaseService.js";
-
+import {
+  saveVideoInDatabase,
+  saveTagsInDatabase,
+  addPreviewUrl,
+} from "/services/databaseService.js";
+import Preview from "./Preview";
 class Lujuria {
-  private webhook: Webhook;
   private video: VideoType;
   private tag: TagType;
   async exec(): Promise<void> {
-    this.webhook = new Webhook();
-    await this.webhook.setup();
-    this.tag = await this.webhook.getTag();
+    const tag = new Tag();
+    this.tag = await tag.get();
     const video = new Video(this.tag.name);
     this.video = await video.get();
+    console.log(this.video.duration);
+    const previewer = new Preview(video.url, this.video.duration);
+    const preview = await previewer.get();
+    console.log(preview);
+    /*
+    const tags: string[] = await video.getTags();
     const id = await saveVideoInDatabase(this.video);
-
-    /* FALTA PROCESAMIENTO DE LA CDN
-    await uploadToCdn(file, this.tag.name, cdnUrl),
-    await this.webhook.send(this.video.url, this.video.preview);
-    await fs.unlink(file);
-    */
+    await saveTagsInDatabase(tags, id);
+    const previewUrl = await uploadToCdn(preview, id, "preview");
+    const image = await video.getImage(video.url, id);
+    const imageUrl = await uploadToCdn(image, id, "image");
+    await addPreviewUrl(previewUrl, imageUrl, id);
+    await fs.unlink(preview);*/
     return;
   }
 }

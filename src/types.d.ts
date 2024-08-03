@@ -9,20 +9,14 @@ declare global {
   }
 
   interface VideoType {
-    id: string;
-    title: string;
-    description: string;
-    url: string;
-    preview: string;
-    image: string;
-    duration: string;
-    hls: string;
-    low: string;
-    high: string;
-    views: number;
-    tag: string;
+    title?: string;
+    description?: string;
+    url?: string;
+    image?: string;
+    duration?: number;
+    tags?: string[];
+    files?: { high?: string };
   }
-
   interface GirlType {
     name: string;
     avatar: string;
