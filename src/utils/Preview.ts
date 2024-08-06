@@ -8,34 +8,47 @@ class Preview {
     this.url = url;
     this.duration = duration;
   }
-  private getFrames(): { start: string; end: string }[] {
-    const totalClipDuration = 12; 
-    const clipCount = 3; 
-    const segmentDuration =
-      this.duration >= totalClipDuration
-        ? totalClipDuration / clipCount
-        : this.duration / clipCount;
-
+  private getFrames(
+    clipCount: number,
+    totalClipDuration: number,
+    excludeSeconds: number,
+  ): { start: string; end: string }[] {
+    if (this.duration <= totalClipDuration + excludeSeconds) {
+      excludeSeconds = 0;
+    }
+    this.duration -= excludeSeconds;
+    const segmentDuration = Math.min(
+      totalClipDuration / clipCount,
+      this.duration / clipCount,
+    );
     const clips = [];
     for (let i = 0; i < clipCount; i++) {
-      const start = segmentDuration * i;
-      const end = start + segmentDuration;
+      const start = (this.duration / clipCount) * i;
+      const end = Math.min(start + segmentDuration, this.duration);
       clips.push({
-        start: new Date(Math.min(start, this.duration) * 1000)
-          .toISOString()
-          .slice(11, 19), 
-        end: new Date(Math.min(end, this.duration) * 1000)
-          .toISOString()
-          .slice(11, 19),
+        start: new Date(start * 1000).toISOString().slice(11, 19),
+        end: new Date(end * 1000).toISOString().slice(11, 19),
       });
     }
 
     return clips;
   }
 
-  async get(): Promise<string> {
-    const frames = this.getFrames();
-    const videoPreviewer = new VideoPreviewer(this.url, frames);
+  async get({
+    clipCount,
+    totalClipDuration,
+    excludeSeconds,
+  }: {
+    clipCount: number;
+    totalClipDuration: number;
+    excludeSeconds: number;
+  }): Promise<string> {
+    const frames = this.getFrames(clipCount, totalClipDuration, excludeSeconds);
+    const videoPreviewer = new VideoPreviewer(
+      this.url,
+      "preview/preview.webp",
+      frames,
+    );
     return videoPreviewer.exec();
   }
 }

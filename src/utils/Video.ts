@@ -66,7 +66,7 @@ class Video {
     return this.tags;
   }
   public async getImage(url: string, filename: string): Promise<string> {
-    return await xvideos.downloadImage(url, filename);
+    return await xvideos.downloadImage(url, `preview/${filename}`);
   }
   private async validateVideo(url: string): Promise<boolean> {
     const videosInDb = await db.select({ url: videos.url }).from(videos);
