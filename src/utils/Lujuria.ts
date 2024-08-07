@@ -23,11 +23,9 @@ class Lujuria {
       const tag = new Tag();
       this.tag = await tag.get();
       console.log("Tag obtained:", this.tag);
-
       const video = new Video(this.tag.name);
       this.video = await video.get();
       console.log("Video obtained:", this.video);
-
       const previewer = new Preview(video.url, this.video.duration);
       const preview = await previewer.get({
         clipCount: 4,
@@ -39,9 +37,8 @@ class Lujuria {
       const image: string = await video.getImage(this.video.url, "image");
       console.log("Image obtained:", image);
 
-      const tags: string[] = await video.getTags();
+      const tags: string[] = video.getTags();
       console.log("Tags obtained:", tags);
-
       const id: string = await saveVideoInDatabase(this.video);
       console.log("Video saved in database with ID:", id);
 

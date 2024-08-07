@@ -21,6 +21,7 @@ class Video {
   }
   public async get(): Promise<VideoType> {
     await this.setup();
+    await this.closeRedis();
     return this.video;
   }
   private async getLastPage(): Promise<void> {
@@ -71,6 +72,9 @@ class Video {
   private async validateVideo(url: string): Promise<boolean> {
     const videosInDb = await db.select({ url: videos.url }).from(videos);
     return videosInDb.some((v) => url === v.url);
+  }
+  private async closeRedis(): Promise<void> {
+    await redis.quit();
   }
 }
 
