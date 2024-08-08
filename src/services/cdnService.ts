@@ -1,4 +1,4 @@
-import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { CdnConfig, CDN_URL } from "../config/config.js";
 import * as fs from "fs";
 import { s3Client } from "../config/cdn.js";
@@ -41,5 +41,27 @@ export const uploadToCdn = async (
   } catch (error) {
     console.error("Error uploading file:", error);
     throw new Error("Error uploading file");
+  }
+};
+
+export const deleteFromCdn = async (fileUrl: string): Promise<void> => {
+  try {
+    const url = new URL(fileUrl);
+    const pathname = url.pathname; 
+    const key = pathname.startsWith("/videos/")
+      ? pathname.substring(1) 
+      : pathname;
+
+    const deleteParams = {
+      Bucket: R2_BUCKET_NAME,
+      Key: key,
+    };
+
+    const command = new DeleteObjectCommand(deleteParams);
+    await s3Client.send(command);
+    console.log(`File ${fileUrl} deleted successfully`);
+  } catch (error) {
+    console.error("Error deleting file from CDN:", error);
+    throw new Error("Error deleting file from CDN");
   }
 };
