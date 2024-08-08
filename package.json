@@ -1,25 +1,60 @@
 {
-  "name": "porn-spammer",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "lujuria",
+  "version": "3.0.0",
+  "description": "powerful and automated tool designed to scrape videos from Xvideos, download them, and send them directly to a designated Discord channel via a webhook.",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup",
+    "start": "node --no-warnings ./dist/index.js",
+    "dev": "nodemon",
+    "drizzle:push": "drizzle-kit push"
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "format": [
+      "cjs"
+    ],
+    "dts": true,
+    "outDir": "dist",
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true
   },
   "keywords": [],
-  "author": "",
+  "author": "OSintt",
   "license": "ISC",
   "dependencies": {
-    "@rodrigogs/xvideos": "^1.3.0",
-    "@types/puppeteer": "^7.0.4",
-    "axios": "^1.7.2",
+    "@aws-sdk/client-s3": "^3.623.0",
+    "@aws-sdk/lib-storage": "^3.623.0",
+    "@neondatabase/serverless": "^0.9.4",
+    "axios": "^1.7.3",
     "discord-webhook-node": "^1.1.8",
-    "ffmpeg-static": "^5.2.0",
-    "fluent-ffmpeg": "^2.1.3",
-    "node-fetch": "^3.3.2",
-    "puppeteer": "^22.12.1"
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.31.4",
+    "ioredis": "^5.4.1",
+    "video-previewer": "^1.0.6",
+    "xvideos.js": "^1.0.4"
   },
   "devDependencies": {
-    "@types/node": "^20.14.9"
+    "@eslint/js": "^9.8.0",
+    "@swc/core": "^1.7.5",
+    "@types/node": "^20.14.14",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "drizzle-kit": "^0.22.8",
+    "eslint": "^9.8.0",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.3",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^7.18.0"
   }
 }

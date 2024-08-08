@@ -23,26 +23,6 @@ To get started with LujuriaStream, follow these steps:
     ```bash
     pnpm install
     ```
-
-## Configuration
-
-Before running the script, you need to configure the scraping parameters and Discord webhook settings.
-
-1. Edit `src/webhooks.json` file in the root directory and add the video tags and the webhook you are using
-    ```json
-    [
-      {
-          "feet": "https://discord.com/api/webhooks/0"
-      },
-      {
-          "goth": "https://discord.com/api/webhooks/1"
-      },
-      {
-          "threesome": "https://discord.com/api/webhooks/2"
-      },
-    ]
-    ```
-
 ## Usage
 
 To start scraping, downloading, and sending videos to Discord, run the following command:

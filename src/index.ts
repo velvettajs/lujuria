@@ -1,14 +1,8 @@
-import { getVideos } from "./getVideos";
+import Lujuria from "./utils/Lujuria.js";
 
-const runGetVideos = async () => {
-  try {
-    await getVideos();
-  } catch (error) {
-    console.error("Error in getVideos:", error);
-  }
+async function main(): Promise<void> {
+  const lujuria = new Lujuria();
+  return await lujuria.exec();
+}
 
-  // Llamar a la función nuevamente después de que se complete
-  setTimeout(runGetVideos, 0); 
-};
-
-runGetVideos();
+main();
